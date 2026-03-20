@@ -4,9 +4,10 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+  base: '/Trustly/',
   plugins: [
     // The React and Tailwind plugins are both required for Make, even if
-    // Tailwind is not being actively used – do not remove them
+    // Tailwind is not being actively used — do not remove them
     react(),
     tailwindcss(),
   ],
@@ -16,10 +17,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-
-  // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
-  export default defineConfig({
-  base: '/Trustlynhi/',  // ← nom exact de ton repo
-  plugins: [react()],
 })
+```
+
+→ **Commit changes** sur `main`
+
+Ensuite attends que le workflow ✅ passe et teste :
+```
+https://qnhihuynh-hebergement.github.io/Trustly/
