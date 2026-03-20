@@ -1,0 +1,212 @@
+/* ============================================================
+   TRUSTLY APP — ANIMATION & RESPONSIVE SYSTEM
+   Mobile-first | GPU-accelerated | prefers-reduced-motion safe
+   ============================================================ */
+
+/* ── 1. VARIABLES ─────────────────────────────────────────── */
+:root {
+  --anim-ease:     cubic-bezier(0.4, 0.0, 0.2, 1);
+  --anim-duration: 680ms;
+  --anim-delay-step: 100ms;
+
+  /* Phone container dimensions */
+  --phone-w: 402px;
+  --phone-h: 874px;
+  --phone-radius: 0px;
+}
+
+/* ── 2. KEYFRAMES ─────────────────────────────────────────── */
+
+@keyframes t-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes t-slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes t-scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+@keyframes t-slide-up-scale {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)     scale(1);   }
+}
+
+@keyframes t-slide-in-right {
+  from { opacity: 0; transform: translateX(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateX(0)     scale(1);   }
+}
+
+/* ── 3. PAGE TRANSITION ───────────────────────────────────── */
+
+.page-enter {
+  /* animation disabled — direct display */
+}
+
+/* ── 4. SCROLL-TRIGGER BASE STATES ───────────────────────── */
+/*  Elements start hidden; JS adds .is-visible to reveal them  */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  transition:
+    opacity  var(--anim-duration) var(--anim-ease),
+    transform var(--anim-duration) var(--anim-ease);
+}
+
+.scroll-reveal-fade {
+  opacity: 0;
+  transition: opacity var(--anim-duration) var(--anim-ease);
+}
+
+.scroll-reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity   var(--anim-duration) var(--anim-ease),
+    transform var(--anim-duration) var(--anim-ease);
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(24px);
+  transition:
+    opacity   var(--anim-duration) var(--anim-ease),
+    transform var(--anim-duration) var(--anim-ease);
+}
+
+/* Visible state — added by Intersection Observer */
+.scroll-reveal.is-visible,
+.scroll-reveal-fade.is-visible,
+.scroll-reveal-scale.is-visible,
+.scroll-reveal-right.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── 5. STAGGER DELAYS ────────────────────────────────────── */
+
+.scroll-delay-0   { transition-delay: 0ms;   }
+.scroll-delay-100 { transition-delay: 100ms; }
+.scroll-delay-200 { transition-delay: 200ms; }
+.scroll-delay-300 { transition-delay: 300ms; }
+.scroll-delay-400 { transition-delay: 400ms; }
+.scroll-delay-500 { transition-delay: 500ms; }
+.scroll-delay-600 { transition-delay: 600ms; }
+
+/* ── 6. LAYOUT — PHONE CONTAINER ─────────────────────────── */
+
+/* Outer wrapper: dark bg, always centers the phone */
+.layout-outer {
+  min-height: 100dvh;
+  min-height: 100vh; /* fallback */
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* The "phone" container */
+.layout-phone {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  /* Desktop default: centered phone */
+  width: var(--phone-w);
+  height: 100dvh;
+  height: 100vh; /* fallback */
+  max-height: var(--phone-h);
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+/* ── 7. MEDIA QUERIES ─────────────────────────────────────── */
+
+/* ─ TABLET (769px – 1024px) ─ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .layout-outer {
+    background: #ffffff;
+    padding: 0;
+  }
+
+  .layout-phone {
+    width: var(--phone-w);
+    max-height: var(--phone-h);
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* ─ MOBILE (≤ 768px) ─ */
+@media (max-width: 768px) {
+  .layout-outer {
+    background: #ffffff;
+    padding: 0;
+    align-items: stretch; /* fill height */
+  }
+
+  .layout-phone {
+    width: 100%;
+    height: 100dvh;
+    height: 100vh; /* fallback */
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+/* ─ LARGE DESKTOP (≥ 1280px) — decorative side panels ─ */
+@media (min-width: 1280px) {
+  .layout-outer {
+    background: #ffffff;
+  }
+}
+
+/* ── 8. NAVIGATION MENU ITEMS ─────────────────────────────── */
+
+/* Used in NavigationPage for staggered item appearance on mount */
+.nav-item-enter {
+  animation: t-slide-in-right var(--anim-duration) var(--anim-ease) both;
+}
+
+/* Stagger for nav items by index */
+.nav-item-enter:nth-child(1) { animation-delay: 80ms;  }
+.nav-item-enter:nth-child(2) { animation-delay: 160ms; }
+.nav-item-enter:nth-child(3) { animation-delay: 240ms; }
+.nav-item-enter:nth-child(4) { animation-delay: 320ms; }
+.nav-item-enter:nth-child(5) { animation-delay: 400ms; }
+.nav-item-enter:nth-child(6) { animation-delay: 480ms; }
+
+.nav-header-enter {
+  animation: t-fade-in 500ms var(--anim-ease) 20ms both;
+}
+
+/* ── 9. PREFERS-REDUCED-MOTION ────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:   0.01ms !important;
+    animation-delay:      0ms    !important;
+    transition-duration:  0.01ms !important;
+    transition-delay:     0ms    !important;
+  }
+
+  .scroll-reveal,
+  .scroll-reveal-fade,
+  .scroll-reveal-scale,
+  .scroll-reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
